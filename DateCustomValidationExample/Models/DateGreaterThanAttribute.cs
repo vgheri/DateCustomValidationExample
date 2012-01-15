@@ -9,6 +9,7 @@ namespace DateCustomValidationExample.Models
     public class DateGreaterThanAttribute : ValidationAttribute
     {
         string otherPropertyName;
+        string otherPropertyValue;
 
         public DateGreaterThanAttribute(string otherPropertyName)
             : base("{0} must be greater than {1}")
@@ -24,7 +25,7 @@ namespace DateCustomValidationExample.Models
         public override string FormatErrorMessage(string name)
         {
             // In our case this will return: "Estimated end date must be greater than Start date"
-            return string.Format(ErrorMessageString, name, otherPropertyName);
+            return string.Format(ErrorMessageString, name, otherPropertyValue);
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -39,6 +40,7 @@ namespace DateCustomValidationExample.Models
                 {
                     DateTime toValidate = (DateTime)value;
                     DateTime referenceProperty = (DateTime)otherPropertyInfo.GetValue(validationContext.ObjectInstance, null);
+                    this.otherPropertyValue = referenceProperty.ToShortDateString();
                     // if the end date is lower than the start date, than the validationResult will be set to false and return
                     // a properly formatted error message
                     if (toValidate.CompareTo(referenceProperty) < 1)
