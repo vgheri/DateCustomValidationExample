@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DateCustomValidationExample.Models
 {
-    public class DateGreaterThanAttribute : ValidationAttribute
+    public class DateGreaterThanAttribute : ValidationAttribute, IClientValidatable
     {
         string otherPropertyName;
         string otherPropertyValue;
@@ -63,5 +64,28 @@ namespace DateCustomValidationExample.Models
 
             return validationResult;
         }
+           
+        #region IClientValidatable Members
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <param name="metadata"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            string errorMessage = FormatErrorMessage(metadata.DisplayName);
+
+            // The value we set here are needed by the jQuery adapter
+            ModelClientValidationRule dateGreaterThanRule = new ModelClientValidationRule();
+            dateGreaterThanRule.ErrorMessage = errorMessage;            
+            dateGreaterThanRule.ValidationType = "dategreaterthan"; // This is the name the jQuery validator will use
+            dateGreaterThanRule.ValidationParameters.Add("otherpropertyname", otherPropertyName);
+
+            yield return dateGreaterThanRule;
+        }
+
+        #endregion
     }
 }
