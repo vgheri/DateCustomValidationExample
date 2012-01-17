@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace DateCustomValidationExample.Models
 {
+
     public class DateGreaterThanAttribute : ValidationAttribute, IClientValidatable
     {
         string otherPropertyName;
@@ -81,7 +82,8 @@ namespace DateCustomValidationExample.Models
             ModelClientValidationRule dateGreaterThanRule = new ModelClientValidationRule();
             dateGreaterThanRule.ErrorMessage = errorMessage;            
             dateGreaterThanRule.ValidationType = "dategreaterthan"; // This is the name the jQuery validator will use
-            dateGreaterThanRule.ValidationParameters.Add("otherpropertyname", otherPropertyName);
+            //"otherpropertyname" is the name of the jQuery parameter for the adapter, must be LOWERCASE!
+            dateGreaterThanRule.ValidationParameters.Add("otherpropertyname", otherPropertyName); 
 
             yield return dateGreaterThanRule;
         }
