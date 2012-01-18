@@ -10,11 +10,10 @@ namespace DateCustomValidationExample.Models
 
     public class DateGreaterThanAttribute : ValidationAttribute, IClientValidatable
     {
-        string otherPropertyName;
-        string otherPropertyValue;
+        string otherPropertyName;                
 
-        public DateGreaterThanAttribute(string otherPropertyName)
-            : base("{0} must be greater than {1}")
+        public DateGreaterThanAttribute(string otherPropertyName, string errorMessage)
+            : base(errorMessage)
         {
             this.otherPropertyName = otherPropertyName;
         }
@@ -41,14 +40,14 @@ namespace DateCustomValidationExample.Models
                 if (otherPropertyInfo.PropertyType.Equals(new DateTime().GetType()))
                 {
                     DateTime toValidate = (DateTime)value;
-                    DateTime referenceProperty = (DateTime)otherPropertyInfo.GetValue(validationContext.ObjectInstance, null);
-                    this.otherPropertyValue = referenceProperty.ToShortDateString();
+                    DateTime referenceProperty = (DateTime)otherPropertyInfo.GetValue(validationContext.ObjectInstance, null);                    
                     // if the end date is lower than the start date, than the validationResult will be set to false and return
                     // a properly formatted error message
                     if (toValidate.CompareTo(referenceProperty) < 1)
                     {
-                        string message = FormatErrorMessage(validationContext.DisplayName);
-                        validationResult = new ValidationResult(message);
+                        //string message = FormatErrorMessage(validationContext.DisplayName);
+                        //validationResult = new ValidationResult(message);
+                        validationResult = new ValidationResult(ErrorMessageString);
                     }
                 }
                 else
@@ -76,7 +75,8 @@ namespace DateCustomValidationExample.Models
         /// <returns></returns>
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
-            string errorMessage = this.FormatErrorMessage(metadata.DisplayName);
+            //string errorMessage = this.FormatErrorMessage(metadata.DisplayName);
+            string errorMessage = ErrorMessageString;
 
             // The value we set here are needed by the jQuery adapter
             ModelClientValidationRule dateGreaterThanRule = new ModelClientValidationRule();

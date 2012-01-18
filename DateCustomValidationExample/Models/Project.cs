@@ -20,7 +20,7 @@ namespace DateCustomValidationExample.Models
 
         [DisplayName("Estimated end date")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        [DateGreaterThan("StartDate")]
+        [DateGreaterThan("StartDate", "Estimated end date must be greater than the start date of the project")]
         public DateTime EndDate { get; set; }
     }
 }
