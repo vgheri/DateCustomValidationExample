@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace DateCustomValidationExample.Models
 {
-
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple=true)]
     public class DateGreaterThanAttribute : ValidationAttribute, IClientValidatable
     {
         string otherPropertyName;                

@@ -1,6 +1,6 @@
 ﻿/* File Created: January 16, 2012 */
 
-// Value is the element to be validated, params is the array of name/value pairs of the parameters extracted from the HTML.
+// Value is the element to be validated, params is the array of name/value pairs of the parameters extracted from the HTML, element is the HTML element that the validator is attached to
 $.validator.addMethod("dategreaterthan", function (value, element, params) {
     return Date.parse(value) > Date.parse($(params).val());
 });
@@ -8,9 +8,12 @@ $.validator.addMethod("dategreaterthan", function (value, element, params) {
 
 /* The adapter signature:
 adapterName is the name of the adapter, and matches the name of the rule in the HTML element.
+
 params is an array of parameter names that you're expecting in the HTML attributes, and is optional. If it is not provided, 
 then it is presumed that the validator has no parameters.
+
 fn is a function which is called to adapt the HTML attribute values into jQuery Validate rules and messages. 
+
 The function will receive a single parameter which is an options object with the following values in it:
 element
 The HTML element that the validator is attached to

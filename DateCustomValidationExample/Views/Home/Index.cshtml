@@ -12,9 +12,7 @@
 <script src="../../Scripts/jquery.validate.js" type="text/javascript"></script>
 <script src="../../Scripts/jquery.validate.unobtrusive.js" type="text/javascript"></script>
 <script src="../../Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
-
-
-<!--<script src="../../Scripts/Custom/CustomValidation.js" type="text/javascript"></script>-->
+<script src="../../Scripts/Custom/CustomValidation.js" type="text/javascript"></script>
 
 <script>
     $().ready(function () {
@@ -22,17 +20,6 @@
         $("#EndDate").datepicker();
         return false;
     });
-    
-    $.validator.addMethod("dategreaterthan", function (value, element, params) {
-        return Date.parse(value) > Date.parse($(params).val());
-    });
-
-    $.validator.unobtrusive.adapters.add("dategreaterthan", ["otherpropertyname"], function (options) {
-        options.rules["dategreaterthan"] = "#" + options.params.otherpropertyname;
-        //VGTODO I have to fix the error message to show the value of the StartDate field
-        options.messages["dategreaterthan"] = options.message;
-    });
-    
 </script>
 
 @using (Html.BeginForm()) {
