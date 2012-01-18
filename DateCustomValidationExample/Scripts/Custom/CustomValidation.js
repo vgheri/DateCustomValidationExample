@@ -31,9 +31,9 @@ that it wants to attach. The name is the name of the jQuery Validate rule, and t
 messages
 The jQuery messages array for this HTML element. The adapter is expected to add item(s) to this messages array for the specific jQuery Validate validators that it wants to attach, if it wants a custom error message for this rule. The name is the name of the jQuery Validate rule, and the value is the custom message to be displayed when the rule is violated.
 */
-$.validator.unobtrusive.adapters.add("dategreaterthan", params, function (options) {
-    options.rules["dategreaterthan"] = "#" + options.params.otherPropertyName;
-    options.message["dategreaterthan"] = options.message;
+$.validator.unobtrusive.adapters.add("dategreaterthan", ["otherpropertyname"], function (options) {
+    options.rules["dategreaterthan"] = "#" + options.params.otherpropertyname;    
+    options.messages["dategreaterthan"] = options.message;
 });
 
 

@@ -64,7 +64,8 @@ namespace DateCustomValidationExample.Models
 
             return validationResult;
         }
-           
+         
+        
         #region IClientValidatable Members
 
         /// <summary>
@@ -89,5 +90,6 @@ namespace DateCustomValidationExample.Models
         }
 
         #endregion
+         
     }
 }

@@ -30,7 +30,7 @@
     $.validator.unobtrusive.adapters.add("dategreaterthan", ["otherpropertyname"], function (options) {
         options.rules["dategreaterthan"] = "#" + options.params.otherpropertyname;
         //VGTODO I have to fix the error message to show the value of the StartDate field
-        options.messages["dategreaterthan"] = options.message + $("#" + options.params.otherpropertyname).val();
+        options.messages["dategreaterthan"] = options.message;
     });
     
 </script>
