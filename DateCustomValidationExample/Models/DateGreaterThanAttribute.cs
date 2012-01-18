@@ -27,7 +27,7 @@ namespace DateCustomValidationExample.Models
         public override string FormatErrorMessage(string name)
         {
             // In our case this will return: "Estimated end date must be greater than Start date"
-            return string.Format(ErrorMessageString, name, otherPropertyValue);
+            return string.Format(ErrorMessageString, name, otherPropertyName);
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -76,7 +76,7 @@ namespace DateCustomValidationExample.Models
         /// <returns></returns>
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
-            string errorMessage = FormatErrorMessage(metadata.DisplayName);
+            string errorMessage = this.FormatErrorMessage(metadata.DisplayName);
 
             // The value we set here are needed by the jQuery adapter
             ModelClientValidationRule dateGreaterThanRule = new ModelClientValidationRule();
